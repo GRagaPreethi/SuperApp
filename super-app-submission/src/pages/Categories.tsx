@@ -25,9 +25,9 @@ export default function Categories() {
   const tooFew = selected.length < MIN_CATEGORIES;
 
   return (
-    <div className="min-h-screen bg-black flex">
+    <div className="min-h-screen bg-black flex flex-col lg:flex-row">
       {/* Left side */}
-      <div className="flex flex-col justify-center px-10 py-12 w-full max-w-xs lg:max-w-sm shrink-0">
+      <div className="flex flex-col justify-center px-6 py-8 w-full lg:max-w-sm shrink-0">
         <div className="flex items-center gap-2 mb-12">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
             <Zap className="h-4 w-4 text-black" />
@@ -77,7 +77,7 @@ export default function Categories() {
 
       {/* Right side — 3-column grid */}
       <div className="flex-1 flex items-center justify-center p-8 lg:p-12">
-        <div className="grid grid-cols-3 gap-4 w-full max-w-2xl">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full max-w-2xl">
           {CATEGORIES.map(({ name, image, color }) => (
             <CategoryCard
               key={name}
