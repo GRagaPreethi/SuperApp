@@ -111,9 +111,17 @@ export async function fetchMoviesByCategory(category: string): Promise<Movie[]> 
 ) {
   return fallback || [];
 }
-    const movies = (data.Search as Movie[]).slice(0, 4);
-    const valid = movies.filter((m) => m.Poster && m.Poster !== 'N/A');
-    return valid.length > 0 ? valid : (fallback || []);
+   const movies = (data.Search as Movie[]).slice(0, 4);
+
+const valid = movies.filter(
+  (m) => m.Poster && m.Poster !== 'N/A'
+);
+
+if (valid.length < 4) {
+  return fallback || [];
+}
+
+return valid;
   } catch {
     return fallback || [];
   }
