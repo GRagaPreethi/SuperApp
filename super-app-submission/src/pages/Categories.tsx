@@ -12,10 +12,19 @@ export default function Categories() {
   const navigate = useNavigate();
 
   const toggle = (name: string) => {
-    setSelected((prev) =>
-      prev.includes(name) ? prev.filter((c) => c !== name) : [...prev, name]
-    );
-  };
+  setSelected((prev) => {
+    if (prev.includes(name)) {
+      return prev.filter((c) => c !== name);
+    }
+
+    if (prev.length >= 3) {
+      alert('You can select only 3 categories');
+      return prev;
+    }
+
+    return [...prev, name];
+  });
+};
 
   const handleContinue = () => {
     setCategories(selected);
