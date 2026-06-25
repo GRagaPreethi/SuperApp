@@ -87,12 +87,12 @@ const CATEGORY_SEARCH_TERMS: Record<string, string> = {
   Action: 'action',
   Drama: 'drama',
   Romance: 'love',
-  Thriller: 'thriller',
+  Thriller: 'The Menu',
   Western: 'western',
-  Horror: 'horror',
-  Fantasy: 'fantasy',
-  Music: 'music',
-  Fiction: 'space',
+  Horror: 'M3GAN',
+  Fantasy: 'Lord of the Rings',
+  Music: 'Bohemian Rhapsody',
+  Fiction: 'Interstellar',
 };
 
 export async function fetchMoviesByCategory(category: string): Promise<Movie[]> {
@@ -104,7 +104,13 @@ export async function fetchMoviesByCategory(category: string): Promise<Movie[]> 
       params: { s: term, type: 'movie', apikey: OMDB_KEY },
       timeout: 5000,
     });
-    if (data.Response === 'False' || !data.Search?.length) return fallback || [];
+   if (
+  data.Response === 'False' ||
+  !data.Search?.length ||
+  data.Search.length < 4
+) {
+  return fallback || [];
+}
     const movies = (data.Search as Movie[]).slice(0, 4);
     const valid = movies.filter((m) => m.Poster && m.Poster !== 'N/A');
     return valid.length > 0 ? valid : (fallback || []);
